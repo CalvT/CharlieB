@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CharlieB
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       CalvT
 // @match        https://chat.stackexchange.com/rooms/11540/charcoal-hq
@@ -11,8 +11,6 @@
 
 (function() {
     'use strict';
-
-    var version = 0.1;
 
     var charlieRegex = /^@Cha(\b|r(\b|l(\b|i(\b|e(\b|B)))))\b/;
 
@@ -43,7 +41,10 @@
     }
 
     function startup(){
-        charlieMessage("CharlieB started at revision " + version + " on CalvT/SurfacePro");
+        $.get("https://api.github.com/repos/CalvT/CharlieB/git/refs/heads/master", function(ghjson){
+            charlieMessage("CharlieB started at revision [" + ghjson.object.sha.substring(0, 6) + "](https://github.com/CalvT/CharlieB/commit/" + ghjson.object.sha +") on CalvT/SurfacePro");
+        });
+
     }
 
 })();
