@@ -36,7 +36,7 @@
                 // Prepare content for Charlie
                 var charlieMessage = content.replace(charlieRegex, "").replace(messageRegex, "");
                 var charlieCommand = charlieMessage.trim().match(commandRegex);
-                var charlieParameters = charlieMessage.trim().replace(commandRegex, "");
+                var charlieParameters = charlieMessage.replace(commandRegex, "").trim();
                 chatMessage("I recieved the command *" + charlieCommand + "* along with the parameters *" + charlieParameters + "* from user " + user_id);
 
             }
