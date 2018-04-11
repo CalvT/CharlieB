@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CharlieB
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  try to take over the world!
 // @author       CalvT
 // @match        https://chat.stackexchange.com/rooms/11540/charcoal-hq
@@ -46,13 +46,30 @@
     }
 
     function chatMessage(message) {
-    if (shutupOn === 0) {
-        document.getElementById('input').value = "[ [CharlieB](https://github.com/CalvT/CharlieB) ] " + message;
-        $('#sayit-button').click();
-    } else if (shutupOn !== 0) {
-        console.log('CB: ' + message);
+
+        if (shutupOn === 0) {
+            id = document.getElementsByName('room')[0].value;
+            message = "[ [CharlieB](https://github.com/CalvT/CharlieB) ] " + message;
+            function send() {
+                $.ajax({
+                    "type": "POST",
+                    "url": "https://chat.stackexchange.com/chats/" + id + "/messages/new",
+                    "data": fkey({
+                        "text": message
+                    }),
+                    "dataType": "json",
+                    "error": error
+                });
+            }
+            function error() {
+                console.log("Could not send, waiting 1500.");
+                window.setTimeout(send, 1500);
+            }
+            send();
+        } else if (shutupOn !== 0) {
+            console.log('CB: ' + message);
+        }
     }
-}
 
     function startup(){
         $.get("https://api.github.com/repos/CalvT/CharlieB/git/refs/heads/master", function(ghjson){
