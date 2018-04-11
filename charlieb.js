@@ -6,6 +6,11 @@ var commandRegex = /^\s*[a-z]*\b/i;
 
 var shutupOn = 0;
 
+var commandsArray = [
+    {"name":"coffee", "reply": "Brews a coffee"},
+    {"name":"gimme", "reply":"Gimmez teh codez"},
+];
+
 $(document).ready(function () {
     // Add function to the CHAT event handler:
     CHAT.addEventHandlerHook(chatMessageRecieved);
@@ -23,7 +28,10 @@ function chatMessageRecieved({event_type, user_id, content}) {
             var charlieMessage = content.replace(charlieRegex, "").replace(messageRegex, "");
             var charlieCommand = charlieMessage.trim().match(commandRegex);
             var charlieParameters = charlieMessage.replace(commandRegex, "").trim();
-            chatMessage("I recieved the command *" + charlieCommand + "* along with the parameters *" + charlieParameters + "* from user " + user_id);
+            var commandArray = commandsArray.filter(function(item){
+                return item.name === charlieCommand[0];
+            });
+            chatMessage(commandArray[0].reply);
 
         }
 
