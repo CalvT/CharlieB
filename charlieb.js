@@ -1,9 +1,3 @@
-var charlieRegex = /^@cha(|r(|l(|i(|e(|b)))))\b/i;
-
-var messageRegex = /[^a-z0-9\s._-]/gi;
-
-var commandRegex = /^\s*[a-z]*\b/i;
-
 var shutupOn = 0;
 
 var commandsArray = [
@@ -21,15 +15,15 @@ function chatMessageRecieved({event_type, user_id, content}) {
     // Check if event is a new message (1) or an edit (2)
     if (event_type < 3) {
         // Run regex on message
-        var charlieCheck = content.match(charlieRegex);
+        var message = content.replace(/[^a-z0-9@\s._-]/gi, "");
+        //Separate message
+        message = message.split(" ");
         // Check if message is to Charlie
+        var charlieCheck = meesage[0].match(/^@cha(|r(|l(|i(|e(|b)))))\b/i);
         if (charlieCheck !== null) {
-            // Prepare content for Charlie
-            var charlieMessage = content.replace(charlieRegex, "").replace(messageRegex, "");
-            var charlieCommand = charlieMessage.trim().match(commandRegex);
-            var charlieParameters = charlieMessage.replace(commandRegex, "").trim();
+            // Send command to Charlie
             var commandArray = commandsArray.filter(function(item){
-                return item.name === charlieCommand[0];
+                return item.name === message[1];
             });
             chatMessage(commandArray[0].reply);
 
