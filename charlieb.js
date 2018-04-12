@@ -19,7 +19,7 @@ function chatMessageRecieved({event_type, user_id, content}) {
         //Separate message
         message = message.split(" ");
         // Check if message is to Charlie
-        var charlieCheck = meesage[0].match(/^@cha(|r(|l(|i(|e(|b)))))\b/i);
+        var charlieCheck = message[0].match(/^@cha(|r(|l(|i(|e(|b)))))\b/i);
         if (charlieCheck !== null) {
             // Send command to Charlie
             var commandArray = commandsArray.filter(function(item){
