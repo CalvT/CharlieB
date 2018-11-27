@@ -4,6 +4,7 @@
 // @author       CalvT
 // @author       ArtOfCode
 // @match        https://chat.stackexchange.com/rooms/57773/calvbot-sandbox
+// @match        https://chat.stackexchange.com/rooms/65945/charcoal-test
 // @grant        none
 // ==/UserScript==
 
@@ -18,6 +19,6 @@ function injectDependency(url, callback) {
     document.body.appendChild(scriptElement);
 }
 
-injectDependency("https://rawgit.com/CalvT/CharlieB/master/charlieb.js", function() {
+injectDependency("https://cdn.jsdelivr.net/gh/CalvT/CharlieB/charlieb.js", function() {
     console.log("CharlieB is loaded.");
 });
