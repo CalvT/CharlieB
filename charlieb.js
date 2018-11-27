@@ -1,8 +1,8 @@
-var shutupOn = 0;
+var shutupOn = 1;
 
 var commandsArray = [
     {"name":"coffee", "reply": "Brews a coffee"},
-    {"name":"gimme", "reply":"Gimmez teh codez"},
+    {"name":"gimme", "reply": "Gimmez teh codez"},
 ];
 
 $(document).ready(function () {
