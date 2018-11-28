@@ -1,8 +1,8 @@
 var shutupOn = 1;
 
 var commandsArray = [
-    {"name":"coffee", "reply": "Brews a coffee"},
-    {"name":"gimme", "reply": "Gimmez teh codez"},
+    {"name":"coffee", "reply": "Brews a coffee @"},
+    {"name":"gimme", "reply": "Gimmez teh codez @"},
 ];
 
 $(document).ready(function () {
@@ -18,6 +18,7 @@ function chatMessageRecieved({event_type, user_id, content}) {
         var message = content.replace(/[^a-z0-9@\s._-]/gi, "");
         //Separate message
         message = message.split(" ");
+        console.log(message);
         // Check if message is to Charlie
         var charlieCheck = message[0].match(/^@cha(|r(|l(|i(|e(|b)))))\b/i);
         if (charlieCheck !== null) {
