@@ -1,7 +1,7 @@
 var shutupOn = 1;
 
 var commandsArray = [
-    {"name":"coffee", "reply": "Brews a coffee @"},
+    {"name":"coffee", "reply": "Brews a coffee for @"},
     {"name":"gimme", "reply": "Gimmez teh codez @"},
 ];
 
@@ -14,11 +14,12 @@ $(document).ready(function () {
 function chatMessageRecieved({event_type, user_id, content}) {
     // Check if event is a new message (1) or an edit (2)
     if (event_type < 3) {
+        // Get username
+        var username = $("#present-user-"+user_id+" img").attr("title");
         // Run regex on message
         var message = content.replace(/[^a-z0-9@\s._-]/gi, "");
         //Separate message
         message = message.split(" ");
-        console.log(message);
         // Check if message is to Charlie
         var charlieCheck = message[0].match(/^@cha(|r(|l(|i(|e(|b)))))\b/i);
         if (charlieCheck !== null) {
@@ -26,8 +27,9 @@ function chatMessageRecieved({event_type, user_id, content}) {
             var commandArray = commandsArray.filter(function(item){
                 return item.name === message[1];
             });
-            chatMessage(commandArray[0].reply);
-
+            var reply = commandArray[0].reply;
+            reply = reply.replace("@", "@"+username)
+            chatMessage(reply);
         }
 
     }
